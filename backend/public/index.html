@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="description" content="Sistema fullstack com JWT, Mongoose e CRUD de produtos" />
+  <title>Sistema Fullstack</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <span class="nav-brand">Sistema Fullstack</span>
+    <div class="nav-tabs">
+      <button class="tab-btn active" data-tab="usuarios">Usuários</button>
+      <button class="tab-btn" data-tab="produtos">Produtos</button>
+    </div>
+  </nav>
+
+  <!-- TAB: USUÁRIOS -->
+  <div id="tab-usuarios" class="tab-content active">
+    <div class="container">
+
+      <section class="card">
+        <h2>Cadastro</h2>
+        <form id="registerForm">
+          <input type="text" id="registerName" placeholder="Nome" required />
+          <input type="email" id="registerEmail" placeholder="Email" required />
+          <input type="password" id="registerPassword" placeholder="Senha" required />
+          <select id="registerRole">
+            <option value="user">user</option>
+            <option value="admin">admin</option>
+          </select>
+          <button type="submit">Cadastrar</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Login</h2>
+        <form id="loginForm">
+          <input type="email" id="loginEmail" placeholder="Email" required />
+          <input type="password" id="loginPassword" placeholder="Senha" required />
+          <button type="submit">Entrar</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Perfil autenticado</h2>
+        <div class="actions">
+          <button id="loadProfileBtn">Carregar meu perfil</button>
+          <button id="loadUsersBtn">Listar usuários</button>
+          <button id="logoutBtn">Sair</button>
+        </div>
+        <pre id="profileOutput">Nenhum dado carregado.</pre>
+      </section>
+
+      <section class="card">
+        <h2>Atualizar usuário</h2>
+        <form id="updateForm">
+          <input type="text" id="updateId" placeholder="ID do usuário" required />
+          <input type="text" id="updateName" placeholder="Novo nome" />
+          <input type="email" id="updateEmail" placeholder="Novo email" />
+          <select id="updateRole">
+            <option value="">Manter role atual</option>
+            <option value="user">user</option>
+            <option value="admin">admin</option>
+          </select>
+          <button type="submit">Atualizar</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Atualizar senha</h2>
+        <form id="passwordForm">
+          <input type="text" id="passwordId" placeholder="ID do usuário" required />
+          <input type="password" id="newPassword" placeholder="Nova senha" required />
+          <button type="submit">Alterar senha</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Remover usuário</h2>
+        <form id="deleteForm">
+          <input type="text" id="deleteId" placeholder="ID do usuário" required />
+          <button type="submit" class="danger">Excluir</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Resposta da API</h2>
+        <pre id="apiOutput">Aguardando ação.</pre>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- TAB: PRODUTOS -->
+  <div id="tab-produtos" class="tab-content">
+    <div class="container">
+
+      <section class="card">
+        <h2>Cadastrar produto <span class="badge">admin</span></h2>
+        <form id="createProductForm">
+          <input type="text" id="productName" placeholder="Nome do produto" required />
+          <input type="text" id="productDescription" placeholder="Descrição" required />
+          <input type="number" id="productPrice" placeholder="Preço (ex: 49.90)" step="0.01" min="0" required />
+          <input type="text" id="productCategory" placeholder="Categoria" required />
+          <input type="number" id="productStock" placeholder="Estoque" min="0" value="0" required />
+          <button type="submit">Cadastrar produto</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Listar produtos</h2>
+        <div class="actions">
+          <button id="loadProductsBtn">Carregar todos os produtos</button>
+        </div>
+        <div id="productsList"></div>
+      </section>
+
+      <section class="card">
+        <h2>Buscar produto por ID</h2>
+        <form id="getProductForm">
+          <input type="text" id="getProductId" placeholder="ID do produto" required />
+          <button type="submit">Buscar</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Atualizar produto <span class="badge">admin</span></h2>
+        <form id="updateProductForm">
+          <input type="text" id="updateProductId" placeholder="ID do produto" required />
+          <input type="text" id="updateProductName" placeholder="Novo nome" />
+          <input type="text" id="updateProductDescription" placeholder="Nova descrição" />
+          <input type="number" id="updateProductPrice" placeholder="Novo preço" step="0.01" min="0" />
+          <input type="text" id="updateProductCategory" placeholder="Nova categoria" />
+          <input type="number" id="updateProductStock" placeholder="Novo estoque" min="0" />
+          <select id="updateProductActive">
+            <option value="">Manter status atual</option>
+            <option value="true">Ativo</option>
+            <option value="false">Inativo</option>
+          </select>
+          <button type="submit">Atualizar produto</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Remover produto <span class="badge">admin</span></h2>
+        <form id="deleteProductForm">
+          <input type="text" id="deleteProductId" placeholder="ID do produto" required />
+          <button type="submit" class="danger">Excluir produto</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Resposta da API</h2>
+        <pre id="productApiOutput">Aguardando ação.</pre>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

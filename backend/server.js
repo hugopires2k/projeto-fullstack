@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
-app.use('/', express.static(path.join(__dirname, '../../frontend')));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.get('/api/health', (req, res) => {
   res.status(200).json({ message: 'API funcionando com sucesso.' });
